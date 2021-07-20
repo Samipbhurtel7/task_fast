@@ -1,0 +1,15 @@
+
+FROM python:3.8-slim as build
+WORKDIR /usr/src/app/
+COPY requirements.txt /usr/src/app/
+RUN python -m pip install --upgrade pip
+RUN pip3 install -r requirements.txt
+
+FROM python:3.8-slim
+COPY --from=build /usr/local/lib/python3.8/site-packages/ /usr/local/lib/python3.8/site-packages/
+RUN mkdir -p /usr/src/app/application
+WORKDIR /usr/src/app/
+COPY . /usr/src/app/application
+ENV PYTHONPATH /usr/src/app/
+EXPOSE 5000
+CMD ["python","application/app.py"]

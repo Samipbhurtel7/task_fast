@@ -1,0 +1,17 @@
+
+FROM article-api as build
+COPY requirements_test.txt /usr/src/app/
+RUN python -m pip install --upgrade pip
+RUN pip3 install -r requirements_test.txt
+
+FROM python:3.8-slim as article-service
+COPY --from=build /usr/local/lib/python3.8/site-packages/ /usr/local/lib/python3.8/site-packages/
+COPY --from=build /usr/src/app/application/ /usr/src/app/application/
+
+RUN mkdir -p /usr/src/app/tests
+
+WORKDIR /usr/src/app/
+COPY ./test_enpoints.py /usr/src/app/tests/
+
+ENV PYTHONPATH /usr/src/app/
+ENV DATABASE_URL sqlite:///./sql_app.db
