@@ -40,4 +40,6 @@ Once All image build you can run following command to run the test again.
 ```
 docker-compose run test-service python -m pytest
 ```
+## Github
+This repository also have a practice for github actions. It has been done to compare CI paterns of GoCD and github actions
 Thank you :)
