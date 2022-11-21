@@ -57,3 +57,6 @@ def get_articles(db: Session):
 
 def get_article(id: str, db: Session):
     return db.query(ArticleModel).filter(ArticleModel.id == id).first()
+
+a= 1 +2
+
